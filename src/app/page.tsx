@@ -1,18 +1,20 @@
-import { auth } from "@clerk/nextjs/server";
-import Container from "./components/Container";
+// import { auth } from "@clerk/nextjs/server";
+import Container from "../components/Container";
 
-import AboutSection from "./components/AboutSection";
-import Products from "./components/Products";
-import Testimonials from "./components/Testimonials";
-import NewsSection from "./components/NewsSectin";
+import AboutSection from "../components/Home/AboutSection";
+import Products from "../components/Home/HomeProducts";
+import Testimonials from "../components/Home/Testimonials";
+import NewsSection from "../components/Home/NewsSectin";
 
 export default function Home() {
   return (
     <div>
       {/* Products Section */}
-      <Container>
-        <Products />
-      </Container>
+      <section className='pb-28  pt-20 md:pt-0 md:pb-20'>
+        <Container>
+          <Products />
+        </Container>
+      </section>
       {/*End Products Section */}
 
       {/* About Section */}

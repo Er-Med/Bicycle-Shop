@@ -56,17 +56,23 @@ h6 {
     @apply px-10 py-3 text-white text-lg  font-medium bg-[--secondary] w-fit mx-auto;
   }
 
-  header::before {
+  header.headerBg::before {
     @apply content-[''] bg-white absolute w-0  md:w-2/6 lg:w-[400px] xl:w-[450px] flex h-full mx-auto my-0 left-0 right-[initial] top-0 z-10;
+  }
+  header.headerBg {
+    @apply h-screen md:h-[90vh] relative;
+  }
+  .bg_navbar {
+    @apply shadow-md;
   }
 }
 
-header {
+header.headerBg {
   background-image: linear-gradient(-13deg, #ffffff 0, var(--background) 20%);
 }
 
 @media (width>=768px) {
-  header {
+  header.headerBg {
     background-image: linear-gradient(
       -13deg,
       #ffffff 30%,
@@ -125,54 +131,111 @@ header {
   clip-path: polygon(0 2%, 79% 9%, 79% 90%, 0% 100%);
 }
 
-.button-atrr {
-  background-color: red;
-}
+/* Start  Swiper-Arrows */
 .swiper-button-prev,
 .swiper-button-next {
   position: relative;
-  width: 4rem;
-  height: 4rem;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  border: 1px solid #000;
-  /* margin: 0 2rem; */
   margin-left: auto;
-  bottom: 5rem;
-  margin: 0 1rem;
-  left: 80%;
+  z-index: 100;
+}
+.hero-section .swiper-button-prev,
+.hero-section .swiper-button-next {
+  width: 4rem !important;
+  height: 4rem !important;
+  bottom: 10rem !important;
+  left: 85% !important;
 }
 
+.testimonials-section .swiper-button-prev,
+.testimonials-section .swiper-button-next {
+  width: 4rem !important;
+  height: 4rem !important;
+  bottom: 0 !important;
+  margin-top: 4rem;
+  left: 80% !important;
+}
+
+@media (max-width: 1024px) {
+  .testimonials-section .swiper-button-prev,
+  .testimonials-section .swiper-button-next {
+    width: 4rem !important;
+    height: 4rem !important;
+    bottom: 0 !important;
+    left: 70% !important;
+  }
+}
+@media (max-width: 768px) {
+  .testimonials-section .swiper-button-prev,
+  .testimonials-section .swiper-button-next {
+    width: 3rem !important;
+    height: 3rem !important;
+    left: 55% !important;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero-section .swiper-button-prev,
+  .hero-section .swiper-button-next {
+    bottom: 0 !important;
+    left: 70% !important;
+  }
+}
+@media (max-width: 768px) {
+  .hero-section .swiper-button-prev,
+  .hero-section .swiper-button-next {
+    width: 3rem !important;
+    height: 3rem !important;
+    bottom: 0 !important;
+    left: 60% !important;
+  }
+}
 .swiper-button-prev {
+  margin-inline-end: 2rem;
+  background-color: var(--secondary);
 }
-
 .swiper-button-next {
-  /* left: 90%; */
+  background-color: var(--primary);
+}
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  /* font-weight: 700; */
+  font-size: 2rem;
+  position: absolute;
 }
 .swiper-button-prev::after {
-  position: absolute;
-  content: "";
-  font-weight: 900;
-  /* background-image: url("/src/Public/images/previous-svgrepo-com.svg") !important;
-  background-repeat: no-repeat;
-  background-size: 100% auto;
-  background-position: center; */
+  content: "<";
+}
+.swiper-button-next::after {
+  content: ">";
+}
+/* End  Swiper-Arrows */
+
+/* Start navbar rest styles on Product Details and cart pages   */
+.bg_navbar ul li a,
+.bg_navbar .menu_icon {
+  /* background: red !important; */
+  color: black !important;
+}
+.bg_navbar ul li:hover a {
+  color: var(--secondary) !important;
 }
 
-/* .swiper-button-prev::after {
-  background-image: url("src/assets/lefto.svg");
-  background-repeat: no-repeat;
-  width: 100px;
-  height: 100px;
-  color: #ffffff00;
+.bg_navbar .user-area {
+  color: #000;
 }
 
-.swiper-button-prev.swiper-button-disabled::after {
-  background-image: url("src/assets/leftoDisabled.svg") !important;
-  background-repeat: no-repeat !important;
-  width: 100px !important;
-  height: 100px !important;
-  color: #ffffff00 !important;
-} */
+@media (max-width: 992px) {
+  .bg_navbar ul li a {
+    color: #fff !important;
+  }
+}
+/* End navbar rest styles on Product Details and cart pages  */
+
+
+.active-link {
+  color: var(--secondary) !important;
+}

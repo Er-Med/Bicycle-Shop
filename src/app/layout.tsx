@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { poppins } from "../Public/fonts/fonts";
-import Header from "./components/Header";
+import { poppins } from "../../Public/fonts/fonts";
+import Header from "../components/Header";
 import { ClerkProvider } from "@clerk/nextjs";
-import Footer from "./components/Footer";
+import Footer from "../components/Footer";
+import { CartProvider } from "./contexts/CartContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,14 +17,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang='en'>
-        <body className={`${poppins.className} antialiased `}>
-          <Header />
-          {children}
-          <Footer />
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang='en'>
+      <ClerkProvider>
+        <CartProvider>
+          <body className={`${poppins.className} antialiased `}>
+            <Header />
+            {children}
+            <Footer />
+          </body>
+        </CartProvider>
+      </ClerkProvider>
+    </html>
   );
 }
