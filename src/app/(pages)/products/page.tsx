@@ -1,7 +1,7 @@
 import { getBikeProducts } from "@/apiCalls/productApiCall";
 import Banner from "@/components/Banner";
 import Container from "@/components/Container";
-import Products from "@/components/Products/ProductsList";
+import ProductsList from "@/components/Products/ProductsList";
 import { Product } from "@/utils/types";
 
 export default async function productsPage() {
@@ -11,7 +11,7 @@ export default async function productsPage() {
     <section className="mb-32 ">
       <Banner title="Our Bicycles" />
       <Container>
-        <Products bikes={bikeProducts} />
+        <ProductsList bikes={bikeProducts} />
       </Container>
     </section>
   );

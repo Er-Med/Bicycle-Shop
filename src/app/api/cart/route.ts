@@ -46,20 +46,20 @@ export async function POST(req: NextRequest) {
 export async function PATCH(req: NextRequest) {
  const { userId } = auth();
  if (!userId) {
-   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
  }
 
  const { productId, quantity } = await req.json();
  const cart = getCart(userId);
- 
+
  const itemIndex = cart.items.findIndex(item => item.id === productId);
  if (itemIndex !== -1) {
-   if (quantity > 0) {
-     cart.items[itemIndex].quantity = quantity;
-   } else {
-     cart.items.splice(itemIndex, 1);
-   }
-   updateCart(userId, cart.items);
+  if (quantity > 0) {
+   cart.items[itemIndex].quantity = quantity;
+  } else {
+   cart.items.splice(itemIndex, 1);
+  }
+  updateCart(userId, cart.items);
  }
 
  return NextResponse.json(cart);
@@ -80,7 +80,7 @@ export async function DELETE(req: NextRequest) {
  return NextResponse.json(cart);
 }
 
-export async function PUT(req: NextRequest) {
+export async function PUT(_req: NextRequest) {
  const { userId } = auth();
  if (!userId) {
   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

@@ -13,8 +13,43 @@ import Container from "./Container";
 import { useCart } from "@/app/contexts/CartContext";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isFixed, setIsFixed] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // check is mobile screen
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Check initially
+    checkIfMobile();
+
+    // Add event listener for window resize
+    window.addEventListener("resize", checkIfMobile);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkIfMobile);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile && isMenuOpen) {
+      // Disable scroll
+      document.body.style.overflow = "hidden";
+      document.body.style.height = "100%";
+    } else {
+      // Enable scroll
+      document.body.style.overflow = "unset";
+      document.body.style.height = "auto";
+    }
+
+    // Cleanup function
+    return () => {
+      document.body.style.overflow = "unset";
+      document.body.style.height = "auto";
+    };
+  }, [isMenuOpen, isMobile]);
 
   const pathname = usePathname();
 
@@ -22,21 +57,20 @@ export default function Navbar() {
   const shownBgColor = pathname == "/" ? "" : "bg_navbar";
 
   const { cart } = useCart();
-  const ToggleMenu = () => setIsOpen(!isOpen);
+  const ToggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   // Colored the active link
   const ActiveLink = (href: string) => {
-    console.log(pathname.toLowerCase())
-    console.log(href.toLowerCase())
-    if (pathname.endsWith(href) || (href.includes(pathname) && pathname !== "/")) {
-      return "active-link"
+    if (
+      pathname.endsWith(href) ||
+      (href.includes(pathname) && pathname !== "/")
+    ) {
+      return "active-link";
     } else {
-      return ""
+      return "";
     }
-  }
+  };
 
-
-  console.log(pathname)
   const navLinks = [
     {
       id: "2145",
@@ -66,18 +100,21 @@ export default function Navbar() {
       setIsFixed(window.scrollY > scrollHeight);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
     //shownBgColor class applyed only in product details page for reset the hero section styles
-    <div className={`${shownBgColor} ${isFixed
-      ? 'fixed top-0 left-0 right-0  shadow-lg z-[19999] duration-500 bg-white/30 backdrop-blur-md bg_navbar'
-      : ''}`}>
+    <div
+      className={`${shownBgColor} ${
+        isFixed
+          ? "fixed top-0 left-0 right-0  shadow-lg z-[19999] duration-500 bg-white/30 backdrop-blur-md bg_navbar"
+          : ""
+      }`}>
       <Container>
         <div className={` relative w-full z-[100] `}>
           <nav className='relative lg:relative grid grid-cols-12  py-4 lg:p-4 lg:items-center overflow-hidden lg:h-[80px] justify-between z-[101]'>
@@ -100,14 +137,14 @@ export default function Navbar() {
               className={clsx(
                 " hidden lg:flex lg:w-0 h-0 lg:left-[200%] relative overflow-hidden duration-300   flex-col lg:flex-row  md:justify-between col-span-6  ",
                 {
-                  "!h-fit md:!h-full lg:!w-full lg:!left-0": isOpen,
+                  "!h-fit md:!h-full lg:!w-full lg:!left-0": isMenuOpen,
                 }
               )}
-            // className={
-            //   " h-fit lg:!w-full lg:left-0 hidden lg:flex  relative overflow-hidden duration-300   flex-col lg:flex-row  md:justify-between col-span-6  "
-            // }
+              // className={
+              //   " h-fit lg:!w-full lg:left-0 hidden lg:flex  relative overflow-hidden duration-300   flex-col lg:flex-row  md:justify-between col-span-6  "
+              // }
             >
-              <ul className='flex flex-col lg:flex-row gap-4 lg:gap-8 xl:gap-14  duration-100 mt-24 lg:mt-0 items-center !bg-green-500 !bg-blue-500 '>
+              <ul className='flex flex-col lg:flex-row gap-4 lg:gap-8 xl:gap-14  duration-100 mt-24 lg:mt-0 items-center'>
                 {navLinks.map((link) => (
                   <li key={link.id}>
                     <Link
@@ -147,7 +184,7 @@ export default function Navbar() {
             <div
               className=' menu_icon text-4xl col-span-7 lg:col-span-1 justify-self-end text-white'
               onClick={ToggleMenu}>
-              {isOpen ? <RiMenuFold4Line /> : <RiMenuUnfold4Line2 />}
+              {isMenuOpen ? <RiMenuFold4Line /> : <RiMenuUnfold4Line2 />}
             </div>
             {/*End BarMenu Icon */}
           </nav>
@@ -158,7 +195,7 @@ export default function Navbar() {
               " lg:hidden fixed  top-0 right-0 h-[100vh] overflow-hidden w-0 zd-[100] bg-[--background] flex items-center justify-center duration-150 opacity-0  ",
               {
                 "bg-[--background] !w-full  !opacity-100  !rounded-none":
-                  !isOpen,
+                  !isMenuOpen,
               }
             )}>
             <ul className='flex flex-col  gap-4 text-white items-center'>

@@ -9,19 +9,17 @@
   --btn_bg: #274d5a;
   --secondary: #f7c17b;
   --green: #32cd32;
-  --foreground: #171717;
   --white: #fff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* --background: #0a0a0a; */
+    /* --: #0a0a0a; */
     /* --foreground: #ededed; */
   }
 }
 
 body {
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -220,6 +218,10 @@ header.headerBg {
   /* background: red !important; */
   color: black !important;
 }
+.bg_navbar ul li a.active-link {
+  color: var(--secondary) !important;
+  font-size: 17px;
+}
 .bg_navbar ul li:hover a {
   color: var(--secondary) !important;
 }
@@ -235,7 +237,9 @@ header.headerBg {
 }
 /* End navbar rest styles on Product Details and cart pages  */
 
-
 .active-link {
   color: var(--secondary) !important;
+  font-size: 17px;
 }
+
+

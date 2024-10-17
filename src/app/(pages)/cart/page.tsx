@@ -1,11 +1,11 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import bike_8 from "../../../../Public/images/bike-5/bike.jpg";
+// import bike_8 from "../../../../Public/images/bike-5/bike.jpg";
 import { useCart } from '@/app/contexts/CartContext';
 
-export default function page() {
-  const { cart, removeFromCart, clearCart, updateQuantity, isLoading } = useCart();
+export default function Page() {
+  const { cart, removeFromCart, updateQuantity, isLoading } = useCart();
 
   if (isLoading) {
     return <div>Loading cart...</div>;

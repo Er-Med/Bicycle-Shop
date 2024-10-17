@@ -38,7 +38,7 @@ export default function AboutSection() {
               className=' '
             />
           </div>
-          <button className='more-btn mt-16 md:mt-20'><Link href="/about">Read More</Link></button>
+          <button className='more-btn mt-16 md:mt-20'><Link href="/">Read More</Link></button>
         </div>
       </Container>
     </section>

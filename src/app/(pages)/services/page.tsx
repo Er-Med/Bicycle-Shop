@@ -8,9 +8,16 @@ import Link from "next/link";
 // }
 
 import React from 'react';
+import { IconType } from "react-icons";
 import { FaWrench, FaTruck, FaBicycle, FaClock } from 'react-icons/fa';
 
-const ServiceCard = ({ icon: Icon, title, description }) => (
+interface ServiceCardProps {
+  icon: IconType;
+  title: string;
+  description: string;
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ icon: Icon, title, description }) => (
   <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
     <Icon className="w-12 h-12 text-[--primary] mb-4" />
     <h3 className="text-xl font-semibold mb-2">{title}</h3>
@@ -58,7 +65,7 @@ const ServicesPage = () => {
           </div>
           <div className="mt-16 text-center">
             <h2 className="text-3xl font-semibold text-gray-900 mb-4">Need a Custom Service?</h2>
-            <p className="text-xl text-gray-600 mb-8">We're here to accommodate your unique cycling needs.</p>
+            <p className="text-xl text-gray-600 mb-8">We are here to accommodate your unique cycling needs.</p>
             <button className="bg-[--primary] hover:bg-[--secondary] text-white font-bold py-3 px-6  transition duration-300">
               <Link href="/contact">Contact Us</Link>
             </button>
