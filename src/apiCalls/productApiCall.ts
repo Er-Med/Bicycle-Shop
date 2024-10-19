@@ -20,4 +20,3 @@ export async function getSingleBikeProduct(productId: string) {
 
  return response.json();
 }
-

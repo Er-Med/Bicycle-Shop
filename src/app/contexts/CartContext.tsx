@@ -11,12 +11,13 @@ import React, {
 import { useAuth } from "@clerk/nextjs";
 import { DOMAIN } from "@/utils/constants";
 
-// interface CartItem {
-//  id: number;
-//  name: string;
-//  price: number;
-//  quantity: number;
-// }
+import {
+  fetchCart,
+  addToCart as apiAddToCart,
+  removeFromCart as apiRemoveFromCart,
+  clearCart as apiClearCart,
+  updateQuantity as apiUpdateQuantity,
+} from "@/apiCalls/cartApiCalls";
 
 interface CartContextType {
   cart: CartItem[];
@@ -34,22 +35,18 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const { isLoaded, userId } = useAuth();
 
-
   useEffect(() => {
     if (isLoaded && userId) {
-      fetchCart();
+      fetchCartData();
     }
   }, [isLoaded, userId]);
 
   // Get cart
-  const fetchCart = async () => {
+  const fetchCartData = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${DOMAIN}/api/cart`);
-      if (response.ok) {
-        const data = await response.json();
-        setCart(data.items);
-      }
+      const items = await fetchCart();
+      setCart(items);
     } catch (error) {
       console.error("Failed to fetch cart:", error);
     }
@@ -59,15 +56,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // Add To Cart
   const addToCart = async (productId: number) => {
     try {
-      const response = await fetch(`${DOMAIN}/api/cart`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setCart(data.items);
-      }
+      const updatedCart = await apiAddToCart(productId);
+      setCart(updatedCart);
     } catch (error) {
       console.error("Failed to add to cart:", error);
     }
@@ -76,15 +66,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // Remove From Cart
   const removeFromCart = async (productId: number) => {
     try {
-      const response = await fetch(`${DOMAIN}/api/cart`, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setCart(data.items);
-      }
+      const updatedCart = await apiRemoveFromCart(productId);
+      setCart(updatedCart);
     } catch (error) {
       console.error("Failed to remove from cart:", error);
     }
@@ -93,10 +76,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // Clear Cartt
   const clearCart = async () => {
     try {
-      const response = await fetch(`${DOMAIN}/api/cart`, { method: "PUT" });
-      if (response.ok) {
-        setCart([]);
-      }
+      await apiClearCart();
+      setCart([]);
     } catch (error) {
       console.error("Failed to clear cart:", error);
     }
@@ -104,23 +85,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const updateQuantity = async (productId: number, quantity: number) => {
     try {
-      const response = await fetch('/api/cart', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId, quantity }),
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setCart(data.items);
-      }
+      const updatedCart = await apiUpdateQuantity(productId, quantity);
+      setCart(updatedCart);
     } catch (error) {
-      console.error('Failed to update quantity:', error);
+      console.error("Failed to update quantity:", error);
     }
   };
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, updateQuantity, removeFromCart, clearCart, isLoading }}>
+      value={{
+        cart,
+        addToCart,
+        updateQuantity,
+        removeFromCart,
+        clearCart,
+        isLoading,
+      }}>
       {children}
     </CartContext.Provider>
   );
