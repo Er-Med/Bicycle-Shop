@@ -1,4 +1,3 @@
-// import { auth } from "@clerk/nextjs/server";
 import Container from "../components/Container";
 
 import AboutSection from "../components/Home/AboutSection";

@@ -9,7 +9,6 @@ import React, {
   ReactNode,
 } from "react";
 import { useAuth } from "@clerk/nextjs";
-import { DOMAIN } from "@/utils/constants";
 
 import {
   fetchCart,
