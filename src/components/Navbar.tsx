@@ -15,41 +15,41 @@ import { useCart } from "@/app/contexts/CartContext";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isFixed, setIsFixed] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // const [isMobile, setIsMobile] = useState(false);
 
-  // check is mobile screen
-  useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
+  // // check is mobile screen
+  // useEffect(() => {
+  //   const checkIfMobile = () => {
+  //     setIsMobile(window.innerWidth <= 768);
+  //   };
 
-    // Check initially
-    checkIfMobile();
+  //   // Check initially
+  //   checkIfMobile();
 
-    // Add event listener for window resize
-    window.addEventListener("resize", checkIfMobile);
+  //   // Add event listener for window resize
+  //   window.addEventListener("resize", checkIfMobile);
 
-    // Cleanup
-    return () => window.removeEventListener("resize", checkIfMobile);
-  }, []);
+  //   // Cleanup
+  //   return () => window.removeEventListener("resize", checkIfMobile);
+  // }, []);
 
-  useEffect(() => {
-    if (isMobile && isMenuOpen) {
-      // Disable scroll
-      document.body.style.overflow = "hidden";
-      document.body.style.height = "100%";
-    } else {
-      // Enable scroll
-      document.body.style.overflow = "unset";
-      document.body.style.height = "auto";
-    }
+  // useEffect(() => {
+  //   if (isMobile && isMenuOpen) {
+  //     // Disable scroll
+  //     document.body.style.overflow = "hidden";
+  //     document.body.style.height = "100%";
+  //   } else {
+  //     // Enable scroll
+  //     document.body.style.overflow = "unset";
+  //     document.body.style.height = "auto";
+  //   }
 
-    // Cleanup function
-    return () => {
-      document.body.style.overflow = "unset";
-      document.body.style.height = "auto";
-    };
-  }, [isMenuOpen, isMobile]);
+  //   // Cleanup function
+  //   return () => {
+  //     document.body.style.overflow = "unset";
+  //     document.body.style.height = "auto";
+  //   };
+  // }, [isMenuOpen, isMobile]);
 
   const pathname = usePathname();
 

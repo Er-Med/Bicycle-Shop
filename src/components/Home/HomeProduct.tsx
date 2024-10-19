@@ -1,15 +1,8 @@
 import { Product } from "@/utils/types";
 import Image from "next/image";
-import ShopBtn from './../ShopBtn';
+import ShopBtn from "./../ShopBtn";
 
-export default function HomeProduct({
-  id,
-  image,
-  name,
-  desc,
-  price,
-  brand,
-}: Product) {
+export default function HomeProduct({ id, image, name, desc, price }: Product) {
   return (
     <div className='product-section group'>
       <section className='grid grid-cols-12 lg:px-10 xl:px-40 '>
