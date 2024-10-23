@@ -1,9 +1,11 @@
 "use client";
 import { useCart } from "@/app/contexts/CartContext";
 import { Product } from "@/utils/types";
+import { useAuth } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function ProductCard({
   id,
@@ -12,14 +14,38 @@ export default function ProductCard({
   price,
   brand,
 }: Product) {
-  const [isInCart, setIsInCart] = useState(Boolean);
-  const { addToCart } = useCart();
+  const [isInCart, setIsInCart] = useState<boolean>(false);
+  const { addToCart, removeFromCart, cart } = useCart();
 
   const handleIsInCartState = () => {
-    setIsInCart(true);
+    setIsInCart(!isInCart);
   };
 
-  const coloredProductInCart = () => (isInCart ? "text-red-500" : "");
+  useEffect(() => {
+    isProductInCart(id);
+  }, []);
+
+  const isProductInCart = (id: number) => {
+    const item = cart.filter((p) => p.id == id);
+    if (item.length > 0) {
+      return "text-red-500";
+    }
+  };
+
+  const { isSignedIn } = useAuth();
+  const router = useRouter();
+
+  const handleAddToCart = (id: number) => {
+    if (!isSignedIn) {
+      router.push("/sign-in");
+    } else {
+      handleIsInCartState();
+      addToCart(id);
+      if (isInCart) {
+        removeFromCart(id);
+      }
+    }
+  };
 
   return (
     <div className='w-72 bg-white shadow-[rgba(0,0,0,0.16)_0px_1px_4px] rounded-xl overflow-hidden'>
@@ -51,10 +77,10 @@ export default function ProductCard({
               </p>
             </del>
             <div
-              className={`${coloredProductInCart()} ml-auto`}
+              className={`${isProductInCart(id)} ml-auto`}
               onClick={() => {
-                addToCart(id);
-                handleIsInCartState();
+                handleAddToCart(id);
+                // handleIsInCartState();
               }}>
               <svg
                 xmlns='http://www.w3.org/2000/svg'

@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 // import bike_8 from "../../../../Public/images/bike-5/bike.jpg";
-import { useCart } from '@/app/contexts/CartContext';
+import { useCart } from "@/app/contexts/CartContext";
 
 export default function Page() {
   const { cart, removeFromCart, updateQuantity, isLoading } = useCart();
@@ -28,50 +28,65 @@ export default function Page() {
               <h1 className='font-semibold text-2xl'>Shopping Cart</h1>
               <h2 className='font-semibold text-2xl'>{cart.length} Items</h2>
             </div>
-            {
-              cart.map((item) => (
-                <div key={item.id} className='md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50'>
-                  <div className='md:w-4/12 2xl:w-1/4 w-full'>
-                    <Link href={`/products/${item.id}`}>
-                      <Image
-                        src={item.image.src}
-                        alt='Black Leather Purse'
-                        height={item.image.height}
-                        width={item.image.width}
-                        className='h-full object-center object-scale-down md:block hidden'
-
-                      />
-                    </Link>
+            {cart.map((item) => (
+              <div
+                key={item.id}
+                className='md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50'>
+                <div className='md:w-4/12 2xl:w-1/4 w-full'>
+                  <Link href={`/products/${item.id}`}>
+                    <Image
+                      src={item.image.src}
+                      alt='Black Leather Purse'
+                      height={item.image.height}
+                      width={item.image.width}
+                      className='h-full object-center object-scale-down md:block hidden'
+                    />
+                  </Link>
+                </div>
+                <div className='md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center'>
+                  <div className='flex items-center justify-between w-full'>
+                    <p className='text-base font-black leading-none text-gray-800'>
+                      {item.name}
+                    </p>
+                    <div className='flex items-center'>
+                      <button
+                        className='border rounded-md py-2 px-4 mr-2'
+                        onClick={() =>
+                          handleQuantityChange(item.id, item.quantity - 1)
+                        }>
+                        -
+                      </button>
+                      <span className='text-center w-8'>{item.quantity}</span>
+                      <button
+                        className='border rounded-md py-2 px-4 mr-2'
+                        onClick={() =>
+                          handleQuantityChange(item.id, item.quantity + 1)
+                        }>
+                        +
+                      </button>
+                    </div>
                   </div>
-                  <div className='md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center'>
-                    <div className='flex items-center justify-between w-full'>
-                      <p className='text-base font-black leading-none text-gray-800'>
-                        {item.name}
-                      </p>
-                      <div className="flex items-center">
-                        <button className='border rounded-md py-2 px-4 mr-2' onClick={() => handleQuantityChange(item.id, item.quantity - 1)}>-</button>
-                        <span className="text-center w-8">{item.quantity}</span>
-                        <button className='border rounded-md py-2 px-4 mr-2' onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>+</button>
-                      </div>
-                    </div>
 
-                    <div className='flex items-center justify-between pt-5'>
-                      <div className='flex itemms-center'>
-                        <p className='text-xs leading-3 underline text-gray-800 cursor-pointer'>
-                          Add to favorites
-                        </p>
-                        <p className='text-xs leading-3 underline text-red-500 pl-5 cursor-pointer' onClick={() => { removeFromCart(item.id) }}>
-                          Remove
-                        </p>
-                      </div>
-                      <p className='text-base font-black leading-none text-gray-800'>
-                        ${item.price}
+                  <div className='flex items-center justify-between pt-5'>
+                    <div className='flex itemms-center'>
+                      <p className='text-xs leading-3 underline text-gray-800 cursor-pointer'>
+                        Add to favorites
+                      </p>
+                      <p
+                        className='text-xs leading-3 underline text-red-500 pl-5 cursor-pointer'
+                        onClick={() => {
+                          removeFromCart(item.id);
+                        }}>
+                        Remove
                       </p>
                     </div>
+                    <p className='text-base font-black leading-none text-gray-800'>
+                      ${item.price}
+                    </p>
                   </div>
                 </div>
-              ))
-            }
+              </div>
+            ))}
 
             <Link
               href='/products'
@@ -91,12 +106,13 @@ export default function Page() {
               Order Summary
             </h1>
             <div className='flex justify-between mt-10 mb-5'>
-              <span className='font-semibold text-sm uppercase'>Items 3</span>
-              <span className='font-semibold text-sm'>{total}</span>
+              <span className='font-semibold text-sm uppercase'>
+                Items {cart.length}
+              </span>
+              <span className='font-semibold text-sm'>${total.toFixed(2)}</span>
             </div>
             <div className='py-10'>
-              <label
-                className='font-semibold inline-block mb-3 text-sm uppercase'>
+              <label className='font-semibold inline-block mb-3 text-sm uppercase'>
                 Promo Code
               </label>
               <input
@@ -112,7 +128,7 @@ export default function Page() {
             <div className='border-t mt-8'>
               <div className='flex font-semibold justify-between py-6 text-sm uppercase'>
                 <span>Total cost</span>
-                <span>{total}</span>
+                <span>${total.toFixed(2)}</span>
               </div>
               <button className='bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full'>
                 Checkout

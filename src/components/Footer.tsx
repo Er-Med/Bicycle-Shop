@@ -19,10 +19,8 @@ export default function Footer() {
   ];
 
   return (
-    <footer>
-      <div
-        className=' py-32 bg-[--primary]
-      '>
+    <footer className='border-t-2 border-[--secondary] drop-shadow-md'>
+      <div className=' py-32 bg-[--primary]'>
         <Container>
           <div className='flex flex-col md:flex-row'>
             {/* Map Location  */}

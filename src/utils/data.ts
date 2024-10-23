@@ -134,7 +134,7 @@ const bikeProducts: Product[] = [
  },
 
  {
-  id: 5,
+  id: 4,
   image: bike_1,
   reviews: 120,
   stars: 4,

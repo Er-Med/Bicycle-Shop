@@ -8,12 +8,11 @@ interface ProductPageProps {
   product: Product;
 }
 
-export default function ProductDetails({
-  product,
-}: ProductPageProps) {
+export default function ProductDetails({product}: ProductPageProps) {
 
   const [activeImg, setActiveImg] = useState(product.image.src);
   const { cart, addToCart } = useCart()
+
   function activeImgHandler(img: string) {
     setActiveImg(img);
   }
@@ -37,7 +36,7 @@ export default function ProductDetails({
               src={activeImg}
               alt='Product'
               className='w-full max-h-[400px] object-scale-down rounded-sm border shadow-md mb-4 pt-4 p-2'
-              id='mainImage'
+              id='mainImage'  
               width={product.image.width}
               height={product.image.height}
             />

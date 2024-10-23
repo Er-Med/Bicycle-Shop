@@ -18,3 +18,34 @@ export default async function productsPage({ params }: SingleProductPageProps) {
     </section>
   );
 }
+
+// // import { Suspense } from "react";
+// import { getSingleBikeProduct } from "@/apiCalls/productApiCall";
+// import Container from "../../../../components/Container";
+// import ProductPage from "../../../../components/Products/ProductPage";
+// // import ProductPageSkeleton from "../../../../components/Products/ProductPageSkeleton";
+// // import AmazonLoader from "@/components/skeltons/skelton1";
+
+// interface SingleProductPageProps {
+//   params: { id: string };
+// }
+
+// // Async component to fetch and render product data
+// async function ProductDetails({ id }: { id: string }) {
+//   const singleProduct = await getSingleBikeProduct(id);
+//   return <ProductPage product={singleProduct} />;
+// }
+
+// export default function ProductsPage({ params }: SingleProductPageProps) {
+//   const pId: string = params.id;
+
+//   return (
+//     <section>
+//       <Container>
+//         {/* <Suspense fallback={<AmazonLoader />} > */}
+//         <ProductDetails id={pId} />
+//         {/* </Suspense> */}
+//       </Container>
+//     </section>
+//   );
+// }
