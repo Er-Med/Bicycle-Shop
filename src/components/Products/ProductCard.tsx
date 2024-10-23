@@ -21,9 +21,9 @@ export default function ProductCard({
     setIsInCart(!isInCart);
   };
 
-  useEffect(() => {
-    isProductInCart(id);
-  }, []);
+  // useEffect(() => {
+  //   isProductInCart(id);
+  // }, []);
 
   const isProductInCart = (id: number) => {
     const item = cart.filter((p) => p.id == id);
@@ -31,6 +31,7 @@ export default function ProductCard({
       return "text-red-500";
     }
   };
+  isProductInCart(id);
 
   const { isSignedIn } = useAuth();
   const router = useRouter();
